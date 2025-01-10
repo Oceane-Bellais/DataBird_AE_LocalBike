@@ -9,4 +9,4 @@ SELECT
     total_sales,
     total_units_sold,
     total_orders
-FROM products_aggreation pa
+FROM {{ ref('int_gsheet_sales__monthly_products_performance') }}
