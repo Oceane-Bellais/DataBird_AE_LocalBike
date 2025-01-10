@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: gsheets_sales
+    schema: gsheets_sales
+
+    tables:
+      - name: brands
+      - name: categories
+      - name: customers
+      - name: order_items
+      - name: orders
+      - name: products
+      - name: staffs
+      - name: stocks
+      - name: stores
