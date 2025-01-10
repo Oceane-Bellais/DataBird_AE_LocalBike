@@ -1,4 +1,18 @@
 models:
+  - name: int_gsheet_sales__customer_favorite_product
+    description: This model identifies the favorite product for each customer based on the total quantity purchased. 
+      It uses a window function to rank products by quantity purchased for each customer and selects 
+      the top-ranking product. If multiple products have the same quantity, one is arbitrarily chosen. 
+      This model is useful for customer analysis and personalization strategies, such as recommending 
+      products or targeting promotions based on customer preferences.
+
+    columns:
+      - name: customer_id
+        description: Unique identifier for the customer.
+      - name: favorite_product_id
+        description: Unique identifier for the product that was purchased the most by the customer.
+
+
   - name: int_gsheet_sales__customers_performance
     description: This model provides an aggregated view of customer performance, including their personal information and key metrics related to their purchasing behavior. 
       It helps identify the most active customers, analyze their lifecycle, and gain a deeper understanding of their product and store preferences. 
