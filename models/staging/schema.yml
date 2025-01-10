@@ -1,0 +1,258 @@
+models:
+  - name: stg_gsheets_sales__brands
+    description: This table contains the brands of the products
+
+    columns:
+      - name: brand_id
+        description: This is a unique identifier for the brand
+        tests:
+          - unique
+          - not_null
+
+      - name: brand_name
+        description: This is the name of the brand
+        tests:
+          - not_null
+
+
+  - name: stg_gsheets_sales__categories
+    description: This table contains the categories of the products
+
+    columns:
+      - name: category_id
+        description: This is a unique identifier for the category
+        tests:
+          - unique
+          - not_null
+
+      - name: category_name
+        description: This is the name of the category
+        tests:
+          - not_null
+
+
+  - name: stg_gsheets_sales__customers
+    description: This table contains information about the customers of Local Bike
+
+    columns:
+      - name: customer_id
+        description: This is a unique identifier for the customer
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_last_name
+        description: This is the last name of the customer
+        tests:
+          - not_null
+
+      - name: customer_first_name
+        description: This is the first name of the customer
+        tests:
+          - not_null
+
+      - name: customer_email
+        description: This is the email address of the customer
+        tests:
+          - not_null
+
+
+  - name: stg_gsheets_sales__order_items
+    description: This table contains the order items
+
+    columns:
+      - name: order_item_id
+        description: This is a unique identifier for the order item
+        tests:
+          - unique
+          - not_null
+
+      - name: order_id
+        description: Foreign key referencing the 'stg_gsheets_sales__orders.order_id' column
+        tests:
+          - not_null
+          - relationships:
+              to: ref('orders')
+              field: order_id
+
+      - name: item_id
+        description: This represents a unique identifier for a line item in the order. Each order may contain multiple line items, each corresponding to a specific product and its details, such as quantity, price, and discount.
+        tests:
+          - not_null
+
+      - name: product_id
+        description: Foreign key referencing the 'stg_gsheets_sales__products.product_id' column
+        tests:
+          - not_null
+          - relationships:
+              to: ref('products')
+              field: product_id
+
+      - name: total_order_item_amount
+        description: The total amount for the order item, calculated as (quantity * price) * (1 - discount)
+        tests:
+          - not_null
+
+
+  - name: stg_gsheets_sales__orders
+    description: This table contains the orders
+
+    columns:
+      - name: order_id
+        description: This is a unique identifier for the order
+        tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        description: Foreign key referencing the 'stg_gsheets_sales__customers.customer_id' column
+        tests:
+          - not_null
+          - relationships:
+              to: ref('customers')
+              field: customer_id
+
+      - name: staff_id
+        description: Foreign key referencing the 'stg_gsheets_sales__staffs.staff_id' column
+        tests:
+          - not_null
+          - relationships:
+              to: ref('staffs')
+              field: staff_id
+
+      - name: store_id
+        description: Foreign key referencing the 'stg_gsheets_sales__stores.store_id' column
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stores')
+              field: store_id
+
+  - name: stg_gsheets_sales__products
+    description: This table contains the products
+
+    columns:
+      - name: product_id
+        description: This is a unique identifier for the product
+        tests:
+          - unique
+          - not_null
+
+      - name: product_name
+        description: This is the name of the product
+        tests:
+          - not_null
+
+
+  - name: stg_gsheets_sales__staffs
+    description: This table contains information about the staff of the company
+
+    columns:
+      - name: staff_id
+        description: This is a unique identifier for the staff
+        tests:
+          - unique
+          - not_null
+
+      - name: staff_last_name
+        description: This is the last name of the staff
+        tests:
+          - not_null
+
+      - name: staff_email
+        description: This is the email address of the staff
+        tests:
+          - not_null
+
+      - name: staff_phone
+        description: This is the phone number of the staff
+        tests:
+          - not_null
+
+      - name: staff_is_active
+        description: This is the active status (True/False) of the staff
+        tests:
+          - not_null
+
+      - name: store_id
+        description: Foreign key referencing the 'stg_gsheets_sales__stores.store_id' column
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stores')
+              field: store_id
+
+
+  - name: stg_gsheets_sales__stocks
+    description: This table contains stock information, linking products to stores
+
+    columns:
+      - name: stock_id
+        description: This is a unique identifier for the stock
+        tests:
+          - unique
+          - not_null
+
+      - name: store_id
+        description: Foreign key referencing the 'stg_gsheets_sales__stores.store_id' column
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stores')
+              field: store_id
+
+      - name: product_id
+        description: Foreign key referencing the 'stg_gsheets_sales__products.product_id' column
+        tests:
+          - not_null
+          - relationships:
+              to: ref('products')
+              field: product_id
+
+
+  - name: stg_gsheets_sales__stores
+    description: This table contains information about the stores
+
+    columns:
+      - name: store_id
+        description: This is a unique identifier for the store
+        tests:
+          - unique
+          - not_null
+
+      - name: store_name
+        description: This is the name of the store
+        tests:
+          - not_null
+
+      - name: store_street
+        description: This is the street of the store
+        tests:
+          - not_null
+
+      - name: store_zip_code
+        description: This is the zip code of the store
+        tests:
+          - not_null
+
+      - name: store_city
+        description: This is the city of the store
+        tests:
+          - not_null
+
+      - name: store_state
+        description: This is the state of the store
+        tests:
+          - not_null
+          - accepted_values: 
+              values: ['CA', 'NY', 'TX']
+
+      - name: store_email
+        description: This is the email address of the store
+        tests:
+          - not_null
+
+      - name: store_phone
+        description: This is the phone number of the store
+        tests:
+          - not_null
