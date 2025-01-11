@@ -1,0 +1,34 @@
+models:
+  - name: mrt_gsheet_sales__customers_performance
+    description: This model provides a comprehensive overview of customer performance metrics, combining aggregated performance data with favorite product information. It helps identify key customer behaviors, preferences, and lifetime value.
+
+    columns:
+      - name: customer_id
+        description: Unique identifier of the customer.
+        tests:
+          - unique
+          - not_null
+      - name: customer_name
+        description: Full name of the customer.
+      - name: customer_email
+        description: Email address of the customer.
+      - name: total_orders
+        description: Total number of orders placed by the customer.
+      - name: total_spent
+        description: Total amount spent by the customer across all orders.
+      - name: last_order_date
+        description: Date of the most recent order placed by the customer.
+      - name: first_order_date
+        description: Date of the first order placed by the customer.
+      - name: customer_lifetime_days
+        description: Number of days between customer's first and last orders.
+      - name: avg_order_value
+        description: Average value of the customer's orders.
+      - name: unique_products_purchased
+        description: Number of unique products purchased by the customer.
+      - name: stores_visited
+        description: Number of different stores visited by the customer.
+      - name: favorite_product_id
+        description: Unique identifier of the customer's favorite product based on purchase quantity.
+      - name: favorite_product_name
+        description: Name of the customer's favorite product.
